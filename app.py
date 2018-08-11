@@ -55,13 +55,19 @@ def post_page():
     db.session.commit()
     return redirect("/")
 
-@app.route("/articles/1")
+@app.route("/articles/new")
 def supported_posting():
     id = 2
     past_message = Message_table.query.filter(Message_table.sender_id == 2)
     return render_template("article.html",id=id,past_message=past_message)
 
-
+@app.route("/attention",methods=["POST"])
+def attention():
+    diary_id = request.form["diary_id"]
+    update_attention = Message_table.query.filter(Message_table.diary_id == diary_id).first()
+    update_attention.attention = 1
+    db.session.commit()
+    return redirect("/")
 
 #DBのコマンド
 @app.cli.command("initdb")
