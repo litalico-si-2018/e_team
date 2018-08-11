@@ -32,7 +32,7 @@ def home():
 
 @app.route("/admin/users")
 def show_users():
-    all_user = User_table.query.all()
+    all_user = User_table.query.filter(User_table.id >= 2)
     return render_template("all_user.html",all_user = all_user)
 
 # rooting of post
