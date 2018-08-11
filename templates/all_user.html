@@ -1,4 +1,4 @@
 <h1>ユーザー一覧</h1>
 {% for user in all_user %}
-<p>ユーザー名: {{user.username}}</p>
+<p>ユーザー名: <a href="articles/{{user.id}}">{{user.username}}</a></p>
 {% endfor %}
