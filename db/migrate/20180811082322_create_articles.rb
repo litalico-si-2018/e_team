@@ -4,6 +4,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       t.datetime :date
       t.string :body
       t.boolean :isread
+      t.string :userid
 
       t.timestamps
     end
