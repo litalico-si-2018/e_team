@@ -49,12 +49,19 @@ def post_page():
         new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
         db.session.add(new_article)
         db.session.commit()
-        return redirect("/article/html")
+    else:
+        sender_id = 2
+        receiver_id = 1
+        new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
+        db.session.add(new_article)
+        db.session.commit()
+    return redirect("/")
 
 @app.route("/articles/1")
 def supported_posting():
     # if User_table.query.filter(Message_table.supporter_id == 1):
-        return render_template("article.html")
+    id = 2
+    return render_template("article.html",id=id)
 
 # end post rooting
 
