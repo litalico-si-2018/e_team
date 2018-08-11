@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
     def hello 
-        render html:"hello" 
+        render :template => "test/test1"
     end
 end
