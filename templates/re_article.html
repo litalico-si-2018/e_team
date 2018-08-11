@@ -4,6 +4,8 @@
 {% for message in from_message %}
 
 {{message.contents}}
-<br>
-
+<form method="POST" action="/attention" enctype="multipart/form-data">
+    <input type="submit" value="見ました">
+    <input type="hidden" name="diary_id" value={{message.diary_id}}>
+</form>
 {% endfor %}
