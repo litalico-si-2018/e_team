@@ -20,8 +20,8 @@ class User_table(db.Model):
 
 class Message_table(db.Model):
     diary_id = db.Column(db.Integer,primary_key = True)
-    supporter_id = db.Column(db.Integer)
-    supported_id = db.Column(db.Integer)
+    sender_id = db.Column(db.Integer)
+    receiver_id = db.Column(db.Integer)
     contents = db.Column(db.String(400))
     attention = db.Column(db.Integer)
 
@@ -35,31 +35,33 @@ def show_users():
     all_user = User_table.query.filter(User_table.id >= 2)
     return render_template("all_user.html",all_user = all_user)
 
-@app.route("/articles/1")
-def supported_posting():
-    # adminのデータを持ってくる
-    return render_template("article.html")
+@app.route("/admin/articles/<int:id>")
+def supporter_posting(id):
+    if Message_table.query.filter(Message_table.sender_id==2):
+        from_message = Message_table.query.filter(Message_table.sender_id==2)
+        username = "test"
+        return render_template("re_article.html",username=username,from_message=from_message)
+    else:
+        return render_template("none.html")
 
-# rooting of post
-@app.route("/admin/articles")
-def supporter_posting():
-    # ユーザーのデータを持ってくる
-    return render_template("article.html")
-
-# end post rooting
-
-# rooting of past posted
 @app.route("/posted_page",methods=["POST"])
 def post_page():
+    id = request.form["id"]
     contents = request.form["contents"]
-    file.save(file_path)
-    # supporter/suppportedのidを取ってくる
-    new_article = Message_table(contents=contents)
+    sender_id = 2
+    receiver_id = 1
+    new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
     db.session.add(new_article)
     db.session.commit()
     return redirect("/")
 
-# the end of past posted
+@app.route("/articles/1")
+def supported_posting():
+    id = 2
+    past_message = Message_table.query.filter(Message_table.sender_id == 2)
+    return render_template("article.html",id=id,past_message=past_message)
+
+
 
 #DBのコマンド
 @app.cli.command("initdb")
