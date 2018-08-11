@@ -37,46 +37,31 @@ def show_users():
 
 @app.route("/admin/articles/<int:id>")
 def supporter_posting(id):
-    return render_template("article.html",id=id)
+    if Message_table.query.filter(Message_table.sender_id==2):
+        from_message = Message_table.query.filter(Message_table.sender_id==2)
+        username = "test"
+        return render_template("re_article.html",username=username,from_message=from_message)
+    else:
+        return render_template("none.html")
 
 @app.route("/posted_page",methods=["POST"])
 def post_page():
     id = request.form["id"]
     contents = request.form["contents"]
-    if id != 1: # 投稿した人がadminの時
-        sender_id = 1
-        receiver_id = id
-        new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
-        db.session.add(new_article)
-        db.session.commit()
-    else:
-        sender_id = 2
-        receiver_id = 1
-        new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
-        db.session.add(new_article)
-        db.session.commit()
+    sender_id = 2
+    receiver_id = 1
+    new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
+    db.session.add(new_article)
+    db.session.commit()
     return redirect("/")
 
 @app.route("/articles/1")
 def supported_posting():
-    # if User_table.query.filter(Message_table.supporter_id == 1):
     id = 2
-    return render_template("article.html",id=id)
+    past_message = Message_table.query.filter(Message_table.sender_id == 2)
+    return render_template("article.html",id=id,past_message=past_message)
 
-# end post rooting
 
-# rooting of past posted
-# @app.route("/posted_page",methods=["POST"])
-# def post_page():
-#     id = request.forms["id"]
-#     contents = request.form["contents"]
-#     file.save(file_path)
-#     new_article = Message_table(contents=contents)
-#     db.session.add(new_article)
-#     db.session.commit()
-#     return redirect("/")
-
-# the end of past posted
 
 #DBのコマンド
 @app.cli.command("initdb")
