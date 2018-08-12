@@ -28,7 +28,7 @@ class Message_table(db.Model):
 #ルーティングエリア
 @app.route("/")
 def home():
-    return "hello_world"
+    return render_template("home.html")
 
 @app.route("/admin/users")
 def show_users():
@@ -53,7 +53,7 @@ def post_page():
     new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
     db.session.add(new_article)
     db.session.commit()
-    return redirect("/")
+    return redirect("/articles/new")
 
 @app.route("/articles/new")
 def supported_posting():
@@ -67,7 +67,7 @@ def attention():
     update_attention = Message_table.query.filter(Message_table.diary_id == diary_id).first()
     update_attention.attention = 1
     db.session.commit()
-    return redirect("/")
+    return redirect("/admin/users")
 
 #DBのコマンド
 @app.cli.command("initdb")
