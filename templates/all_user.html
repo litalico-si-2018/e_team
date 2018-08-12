@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/css/drawer.min.css">
     <!-- global reset-->
     <style>
+        body {
+            background-image: url("/static/notes.png");
+        }
         a:focus,
         button:focus,
         textarea:focus,
@@ -32,6 +35,11 @@
             z-index: 1;
         }
 
+        .navbar {
+            background-color: #fffef2;
+        }
+
+
         .drawer-menu .list-group-item:first-child {
             border-radius: 0px;
             border-top: 0px;
@@ -48,10 +56,6 @@
     </style>
     <!-- custom style -->
     <style>
-        .navbar {
-            background-color: white;
-        }
-
         main {
             margin-top: 56px;
         }
@@ -60,6 +64,7 @@
             min-width: 18rem;
             width: 60vw;
             max-width: 45rem;
+            background-color: rgba(255,255,255,0.5);
         }
 
         .account-list .card {

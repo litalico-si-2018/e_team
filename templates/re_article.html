@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-    <title>main diary page</title>
+    <title>あいのて</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/css/drawer.min.css">
     <!-- global reset-->
     <style>
+        body {
+            background-image: url("/static/notes.png");
+        }
         a:focus,
         button:focus,
         textarea:focus,
@@ -49,7 +52,7 @@
     <!-- custom style -->
     <style>
         .navbar {
-            background-color: white;
+            background-color: #fffef2;
         }
 
         main {
@@ -60,6 +63,7 @@
             min-width: 18rem;
             width: 60vw;
             max-width: 45rem;
+            background-color: rgba(255,255,255,0.5);
         }
 
         .account-list .card {
@@ -68,6 +72,11 @@
 
         a.card {
             color: black;
+        }
+
+        .attention-0 .mimashita{
+            /*background-color: rgba(255, 216, 216, 0.2);*/
+            display: none;
         }
     </style>
 </head>
@@ -99,7 +108,7 @@
             <nav class="navbar navbar-default fixed-top shadow-sm">
                 <div class="container">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">header</a>
+                        <a class="navbar-brand" href="/">あいのて</a>
                     </div>
                 </div>
             </nav>
@@ -109,26 +118,30 @@
         <main role="main container">
             <!-- diary header -->
             <section class="diary-header pt-3 ml-5 mb-4">
-                <h5 class="text-muted"{{username}}></h5>
+                <h5 class="text-muted">2018年</h5>
+                <h3>8月12日</h3>
+                <h5 class="text-muted">{{username}}さん</h5>
             </section>
             <!-- diary tips -->
 
-            {% for message in from_message %}
             <section class="diary-tips container">
-                <div class="card mx-auto mt-1 mb-2 border border-info">
+                {% for message in from_message %}
+                <div id="diary-{{message.diary_id}}" class="card mx-auto mt-1 mb-2 border border-info attention-{{message.attention}}">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted">16:37</h6>
+                        <!--<h6 class="card-subtitle mb-2 text-muted">16:37</h6>-->
                         <p class="card-text">
                             {{message.contents}}
                         </p>
+                        {% if message.attention == 0 %}
                         <form method="POST" action="/attention" enctype="multipart/form-data" class="card-link">
                             <input type="submit" value="見ました">
                             <input type="hidden" name="diary_id" value={{message.diary_id}}>
                         </form>
+                        {% endif %}
                     </div>
                 </div>
+                {% endfor %}
             </section>
-            {% endfor %}
         </main>
     </div>
 

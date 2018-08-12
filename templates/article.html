@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-    <title>main diary page</title>
+    <title>あいのて</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/css/drawer.min.css">
     <!-- global reset-->
     <style>
+        body {
+            background-image: url("/static/notes.png");
+        }
+
         a:focus,
         button:focus,
         textarea:focus,
@@ -20,6 +24,7 @@
 
         textarea {
             resize: vertical;
+            background-color: rgba(255,255,255,0.8);
         }
     </style>
     <!-- override default-->
@@ -45,11 +50,16 @@
             border-right: 0px;
             border-left: 0px;
         }
+
+        .attention-0 .mimashita{
+            /*background-color: rgba(255, 216, 216, 0.2);*/
+            display: none;
+        }
     </style>
     <!-- custom style -->
     <style>
         .navbar {
-            background-color: white;
+            background-color: #fffef2;
         }
 
         main {
@@ -60,6 +70,7 @@
             min-width: 18rem;
             width: 60vw;
             max-width: 45rem;
+            background-color: rgba(255,255,255,0.5);
         }
 
         .account-list .card {
@@ -99,7 +110,7 @@
             <nav class="navbar navbar-default fixed-top shadow-sm">
                 <div class="container">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">header</a>
+                        <a class="navbar-brand" href="/">あいのて</a>
                     </div>
                 </div>
             </nav>
@@ -114,22 +125,24 @@
                     <h3>8月12日</h3>
                 </section>
                 <!-- diary tips -->
-                {% for past in past_message %}
                 <section class="diary-tips container">
-                    <div class="card mx-auto mt-1 mb-2 border border-secondary" id="article-1">
+                    {% for past in past_message %}
+                    <div class="card mx-auto mt-1 mb-2 border border-secondary attention-{{past.attention}}" id="article-1">
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">16:37</h6>
+                            <!--<h6 class="card-subtitle mb-2 text-muted">16:37</h6>-->
                             <p class="card-text">
-                                    {{past.contents}}
-                                    既読済みか?{{past.attention}}
+                                {{past.contents}}
+                            </p>
+                            <p class="card-text mimashita text-muted">
+                                見ました！
                             </p>
                         </div>
                     </div>
+                    {% endfor %}
                 </section>
-                {% endfor %}
 
                 <!-- input article -->
-                <section class="outer-input-article w-100 shadow pb-1">
+                <section class="outer-input-article w-100 shadow pb-1" id="form">
                     <section class="input-article container">
                         <section class="input-article-main mx-auto mt-3 pt-3">
                             <form method="POST" action="/posted_page" enctype="multipart/form-data" class="form-horizontal">
