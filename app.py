@@ -28,7 +28,7 @@ class Message_table(db.Model):
 #ルーティングエリア
 @app.route("/")
 def home():
-    return "hello_world"
+    return render_template("home.html")
 
 @app.route("/admin/users")
 def show_users():
@@ -38,7 +38,7 @@ def show_users():
 @app.route("/admin/articles/<int:id>")
 def supporter_posting(id):
     if Message_table.query.filter(Message_table.sender_id==2):
-        from_message = Message_table.query.filter(Message_table.sender_id==2)
+        from_message = sorted(Message_table.query.filter(Message_table.sender_id==2),key = lambda message:message.diary_id)
         username = "test"
         return render_template("re_article.html",username=username,from_message=from_message)
     else:
@@ -53,7 +53,7 @@ def post_page():
     new_article = Message_table(sender_id=sender_id, receiver_id = receiver_id,contents=contents,attention=0)
     db.session.add(new_article)
     db.session.commit()
-    return redirect("/")
+    return redirect("/articles/new#form")
 
 @app.route("/articles/new")
 def supported_posting():
@@ -67,7 +67,7 @@ def attention():
     update_attention = Message_table.query.filter(Message_table.diary_id == diary_id).first()
     update_attention.attention = 1
     db.session.commit()
-    return redirect("/")
+    return redirect("/admin/articles/2#diary-" + diary_id)
 
 #DBのコマンド
 @app.cli.command("initdb")

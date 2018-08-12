@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/css/drawer.min.css">
     <!-- global reset-->
     <style>
-        body {
-            background-image: url("/static/notes.png");
-        }
         a:focus,
         button:focus,
         textarea:focus,
@@ -35,11 +32,6 @@
             z-index: 1;
         }
 
-        .navbar {
-            background-color: #fffef2;
-        }
-
-
         .drawer-menu .list-group-item:first-child {
             border-radius: 0px;
             border-top: 0px;
@@ -56,6 +48,10 @@
     </style>
     <!-- custom style -->
     <style>
+        .navbar {
+            background-color: white;
+        }
+
         main {
             margin-top: 56px;
         }
@@ -64,7 +60,6 @@
             min-width: 18rem;
             width: 60vw;
             max-width: 45rem;
-            background-color: rgba(255,255,255,0.5);
         }
 
         .account-list .card {
@@ -112,26 +107,96 @@
         <div class="drawer-overlay drawer-toggle"></div>
         <!-- main contents -->
         <main role="main container">
-            <!-- account list header -->
-            <section class="account-list-header pt-3 ml-5 mb-4">
-                <h3>アカウントリスト</h3>
+            <!-- day list header -->
+            <section class="day-list-header pt-3 ml-5 mb-4">
+                <h3>日記一覧</h3>
             </section>
-            <!-- account list -->
-            {% for user in all_user %}
-            <section class="account-list container">
-                <a href="articles/{{user.id}}" class="card mx-auto mt-1 mb-2">
-                    <div class="card-body">
-                        <h5 class="card-title">{{user.username}}さん</h5>
-                        <p class="card-text text-right"></p>
-                        </p>
-                    </div>
-                </a>
-                {% endfor %}
-
-            </section>
+            <!-- day list -->
+            <section class="day-list container">
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                2018年8月6日
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            2018年8月6日
+                        </a>
+                    </li>
+                </section>
         </main>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
